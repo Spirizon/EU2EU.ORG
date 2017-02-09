@@ -8,13 +8,15 @@ Vue.component('xpn-grid', {
     components: { VueMaterial },    // TODO: this should be injected instead of hardcode
 
     template: `
+    <div class="horizontal-scroll">
     <table class="table">
-        <tr v-for="row in gridData">
+        <tr v-for="row in grid">
             <td v-for="el in row">
                 <xpn-element :el="el"></xpn-element>
             </td>
         </tr>
     </table>
+    </div>
     `,
 
     data() {
@@ -24,7 +26,15 @@ Vue.component('xpn-grid', {
     },
 
     created() {
-        this.grid = this.gridData;
+        let save = this.save;
+        bus.$on('saveData', function () {
+            save();
+        });
+
+        let clear = this.clear;
+        bus.$on('clearData', function () {
+            clear();
+        });
 
         let addrow = this.addRow;
         bus.$on('addRow', function (param) {
@@ -56,13 +66,23 @@ Vue.component('xpn-grid', {
             delrule(param);
         });
 
-        if(this.grid.length == 0) {
-            this.init();
-        }
+        this.init();
     },
     
     methods: {
         init() {
+            this.grid = this.gridData;
+
+            if(this.grid.length != 0) {
+                return;
+            }
+
+            this.grid = JSON.parse(localStorage.getItem('xpn-data') || '[]');
+
+            if(this.grid.length != 0) {
+                return;
+            }
+
             this.grid.push(
                 [
                     {type:'response', value:'?'}, 
@@ -88,6 +108,19 @@ Vue.component('xpn-grid', {
                     {type:'request', value:'?'}
                 ]
             );
+        },
+
+        save() {
+            localStorage.setItem('xpn-data', JSON.stringify(this.grid) );
+            /// TODO: show confirmation notification
+        },
+
+        clear() {
+            for(let i = 0; i < this.grid.length; i++) {
+                this.grid.splice(i, this.grid.length);
+            }
+
+            this.init();
         },
 
         findMidColofMidRow() {

@@ -1,0 +1,42 @@
+td {
+    border: 2px solid lightgray;
+}
+
+.bar {
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #eee;
+}
+
+.margin {
+    margin:auto;
+}
+
+.vertical-text {
+    transform: rotate(90deg);
+    width: 75px;
+    padding-left: 20px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.flex {
+    flex: 1;
+}
+
+.horizontal-scroll {
+    overflow: auto; 
+    overflow-y: hidden;
+}
+
+.width-200-300 {
+    min-width: 200px;
+    max-width: 300px;
+}
