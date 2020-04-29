@@ -1,7 +1,7 @@
 EU2EU.ORG
 =========
 
-An initiative to enable and empower collaborations between citezins and contractors
+An initiative to enable and empower collaborations between citezins and contractors. Absolutely!!!
 
 Under development you should put everything under version control what eventually is needed in production like
 frameworks, components etc.
